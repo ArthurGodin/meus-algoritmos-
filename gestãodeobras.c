@@ -485,13 +485,12 @@ void salvar_materia_primas(MateriaPrima *materia_primas, int tamanho) {
         if (materia_primas[i].codigo != 0) {
             fprintf(file, "%d\n", materia_primas[i].codigo);
             fprintf(file, "%s\n", materia_primas[i].descricao);
-            char preco_unitario_str[20];
-            sprintf(preco_unitario_str, "%.2f", (float)materia_primas[i].preco_unitario);
-            fprintf(file, "%s\n", preco_unitario_str);
-            fprintf(file, "%s\n", materia_primas[i].quantidade);
+            fprintf(file, "%d\n", materia_primas[i].quantidade);
+            fprintf(file, "%.2f\n", materia_primas[i].preco_unitario);
         }
-    
-}fclose(file);}
+    }
+    fclose(file);
+}
 
 void salvar_epis(Epi *episs, int tamanho) {
     FILE *file = fopen("epis.txt", "w+");
@@ -544,20 +543,19 @@ void carregar_canteiro_obras(CanteiroObra *canteiro_obras, int tamanho) {
         printf("Arquivo de canteiro de obras não encontrado. Criando um novo.\n");
         return;
     }
-   int i;
+    int i;
     for (i = 0; i < tamanho; i++) {
         if (fscanf(file, "%d\n", &canteiro_obras[i].codigo_obra) != 1) break;
-        fscanf(file, " %[^\n]", canteiro_obras[i].codigo_obra);
         fscanf(file, " %[^\n]", canteiro_obras[i].descricao);
         fscanf(file, " %[^\n]", canteiro_obras[i].endereco);
         fscanf(file, " %[^\n]", canteiro_obras[i].engenheiro_responsavel);
         fscanf(file, " %[^\n]", canteiro_obras[i].tipo_obra);
-        fscanf(file, " %.2f\n", &canteiro_obras[i].area_total_terreno);
-        fscanf(file, "%.2f\n", &canteiro_obras[i].metros_quadrados_construir);
-        fscanf(file, "%.2f\n", &canteiro_obras[i].custo_previsto_obra);
-        fscanf(file, " %.2f\n", &canteiro_obras[i].custo_mao_de_obra);
-        fscanf(file, " %.2f\n", &canteiro_obras[i].custo_mat_prima);
-        fscanf(file, " %.2f\n", &canteiro_obras[i].custo_real);
+        fscanf(file, "%f\n", &canteiro_obras[i].area_total_terreno);
+        fscanf(file, "%f\n", &canteiro_obras[i].metros_quadrados_construir);
+        fscanf(file, "%f\n", &canteiro_obras[i].custo_previsto_obra);
+        fscanf(file, "%f\n", &canteiro_obras[i].custo_mao_de_obra);
+        fscanf(file, "%f\n", &canteiro_obras[i].custo_mat_prima);
+        fscanf(file, "%f\n", &canteiro_obras[i].custo_real);
     }
     fclose(file);
 }
